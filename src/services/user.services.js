@@ -2,7 +2,6 @@ const { User } = require('../models');
 const { tokenCreation, tokenValidation } = require('../auth/operationsJWT');
 
 const postUser = async (req) => {
-
     const { email } = req;
     const user = await User.findOne({ where: { email } });
     // console.log(user);
