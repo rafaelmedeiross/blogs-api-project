@@ -10,7 +10,8 @@ const User = (sequelize, DataTypes) => {
       image: DataTypes.STRING,      
     }, {
       timestamps: false, 
-      tablename: 'Users'
+      tablename: 'users',
+      underscored: true,
     });
       return User;
   };
