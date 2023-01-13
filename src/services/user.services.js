@@ -21,7 +21,8 @@ const getUsers = async (token) => {
     const { message } = tokenValidation(token);
     if (message) return { message };
     const users = await User.findAll();
-    // const mappedUsers = users.map((user) => if (user))
+    // const mappedUsers = users
+    // .map(({ id, display_name, email, image }) => ({ id, displayName: display_name, email, image }));
     // const { display_name: displayName, email, image } = users;
     return users;
 };
