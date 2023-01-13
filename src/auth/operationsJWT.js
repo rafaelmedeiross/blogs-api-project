@@ -9,6 +9,16 @@ const jwtConfig = {
 
 const tokenCreation = (payload) => jwt.sign(payload, secret, jwtConfig);
 
+const tokenValidation = (token) => {
+  try {
+    const decoded = jwt.verify(token, secret);
+    return { decoded };
+  } catch (error) {
+    return { message: 'Expired or invalid token' };
+  }
+};
+ 
 module.exports = {
     tokenCreation, 
+    tokenValidation,
 };
