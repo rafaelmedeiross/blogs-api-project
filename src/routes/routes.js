@@ -15,5 +15,7 @@ route.post('/user', userMiddleware.verifier, userController.postUser);
 route.get('/user', userController.getUsers);
 route.get('/user/:id', userController.getUserById);
 route.post('/categories', categoryMiddleware.verifier, categoryController.postCategory);
+route.get('/categories', categoryController.getCategories);
+
 
 module.exports = route;

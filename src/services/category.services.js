@@ -2,8 +2,6 @@ const { Category } = require('../models');
 const { tokenValidation } = require('../auth/operationsJWT');
 
 const postCategory = async (token, body) => {
-    // const category = await User.findOne({ where: { name } });
-    // console.log(user);
     const { name } = body;
     if (!token) {
         return { message: 'Token not found' };
@@ -15,6 +13,17 @@ const postCategory = async (token, body) => {
     return category;
 };
 
+const getCategories = async (token) => {
+    if (!token) {
+        return { message: 'Token not found' };
+    }
+    const { message } = tokenValidation(token);
+    if (message) return { message };
+    const categories = await Category.findAll();
+    return categories;
+};
+
 module.exports = {
     postCategory,
+    getCategories,
 };
