@@ -17,5 +17,4 @@ route.get('/user/:id', userController.getUserById);
 route.post('/categories', categoryMiddleware.verifier, categoryController.postCategory);
 route.get('/categories', categoryController.getCategories);
 
-
 module.exports = route;

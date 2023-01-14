@@ -21,7 +21,7 @@ const getUsers = async (token) => {
     if (message) return { message };
     const users = await User.findAll();
     const mappedUsers = users
-    .map(({ id, display_name, email, image }) => ({ id, displayName: display_name, email, image }));
+    .map(({ id, display_name: displayName, email, image }) => ({ id, displayName, email, image }));
     console.log(mappedUsers.displayName);
     return mappedUsers;
 };
