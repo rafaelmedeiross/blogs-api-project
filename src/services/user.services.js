@@ -40,8 +40,23 @@ const getUserById = async (token, id) => {
     }
 };
 
+const deleteUser = async (token) => {
+    if (!token) {
+        return { message: 'Token not found' };
+    }
+    const { message, decoded } = tokenValidation(token);
+    if (message) return { message };
+    const { email } = decoded;
+    console.log(email);
+    const deleted = await User.findOne({ where: { email } });
+    const { id } = deleted;
+    await User.destroy({ where: { id } });
+    return 'deleted';
+};
+
 module.exports = {
     postUser,
     getUsers,
     getUserById,
+    deleteUser,
 };
