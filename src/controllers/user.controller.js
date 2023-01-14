@@ -11,7 +11,7 @@ const getUsers = async (req, res) => {
     const feedback = await userService.getUsers(token);
     if (!token) return res.status(401).json(feedback);
     if (feedback.message) return res.status(401).json(feedback);
-    return res.status(200).json({ feedback });
+    return res.status(200).json(feedback);
   };
 
 const getUserById = async (req, res) => {
