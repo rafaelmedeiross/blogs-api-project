@@ -21,7 +21,7 @@ const getUsers = async (token) => {
     if (message) return { message };
     const users = await User.findAll();
     const mappedUsers = users
-    .map(({ id, display_name: displayName, email, image }) => ({ id, displayName, email, image }));
+    .map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
     console.log(mappedUsers.displayName);
     return mappedUsers;
 };
@@ -34,7 +34,7 @@ const getUserById = async (token, id) => {
     if (message) return { message1: message };
     const userById = await User.findOne({ where: { id } });
     if (!userById) return { message: 'User does not exist' };
-    const { display_name: displayName, email, image } = userById;
+    const { displayName, email, image } = userById;
     if (userById) {
         return { id: parseInt(id, 10), displayName, email, image };
     }
