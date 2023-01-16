@@ -25,10 +25,11 @@ const getUserById = async (req, res) => {
   };
 const deleteUser = async (req, res) => {
   const token = req.header('Authorization');
+  console.log(token);
   const feedback = await userService.deleteUser(token);
   if (!token) return res.status(401).json(feedback);
   if (feedback.message) return res.status(401).json(feedback);
-  return res.status(204);
+  return res.status(204).end();
 };
 
 module.exports = {

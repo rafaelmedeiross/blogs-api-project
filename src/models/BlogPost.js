@@ -4,7 +4,7 @@ const BlogPost = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
     },  
-      user_id: { type: DataTypes.INTEGER, foreignKey: true },
+      userId: { type: DataTypes.INTEGER, foreignKey: true },
       title: DataTypes.STRING,
       content: DataTypes.STRING,
       published: DataTypes.DATE, 
@@ -13,14 +13,15 @@ const BlogPost = (sequelize, DataTypes) => {
       timestamps: false, 
       underscored: true,
     });
-      return BlogPost;
-  };
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
       as: 'User', foreignKey: 'userId'
     })
   };
+      return BlogPost;
+  };
+
 
   module.exports = BlogPost;
   
