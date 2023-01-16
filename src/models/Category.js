@@ -13,8 +13,12 @@ const Category = (sequelize, DataTypes) => {
   };
 
   Category.associate = (models) => {
-    Category.hasOne(models.PostCategory,
-     { foreignKey: 'category_id', as: 'posts_categories' });
+    // Category.hasMany(models.PostCategory, { 
+    //   foreignKey: 'category_id', as: 'postCategory' 
+    // });
+    // Category.hasMany(models.BlogPost, {
+    // as: 'BlogPost', foreignKey: 'userId',
+    // });
  };
   
   module.exports = Category;
