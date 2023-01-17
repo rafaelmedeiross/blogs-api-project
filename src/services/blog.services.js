@@ -46,8 +46,31 @@ const getBlogPostById = async (token, id) => {
     return blogPostById;
     };
 
+const updateBlogPost = async (token, req, id) => {
+    const { title, content } = req;
+    if (!token) return { message: 'Token not found' };
+    const { message, decoded } = tokenValidation(token);
+    if (message) return { message };
+    const { email } = decoded;
+    const user = await User.findOne({ where: { email } });
+    // console.log(user);
+    const postToBeUpdated = await BlogPost.findOne({ where: { id } });
+    if (!postToBeUpdated) return { message1: 'Post does not exist' };
+    const { userId } = postToBeUpdated;
+    if (userId !== user.id) return { message2: 'Unauthorized user' };
+    await BlogPost.update({ title, content }, { where: { id } });
+     const updatedBlogPost = await BlogPost.findOne({ 
+        where: { id },
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+        { model: Category, as: 'categories', through: { attributes: [] },
+        }],
+    });
+    return updatedBlogPost;
+    };
+
 module.exports = {
     postBlogPost,
     getBlogPosts,
     getBlogPostById,
+    updateBlogPost,
 };

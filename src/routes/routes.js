@@ -21,6 +21,7 @@ route.get('/categories', categoryController.getCategories);
 route.post('/post', blogMiddleware.verifier, blogController.postBlogPost);
 route.get('/post', blogController.getBlogPosts);
 route.get('/post/:id', blogController.getBlogPostById);
+route.put('/post/:id', blogMiddleware.updateVerifier, blogController.updateBlogPost);
 
 route.delete('/user/me', userController.deleteUser);
 
