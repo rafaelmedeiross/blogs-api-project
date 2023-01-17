@@ -20,21 +20,34 @@ const postBlogPost = async (req, token) => {
 };
 
 const getBlogPosts = async (token) => {
-    if (!token) {
-        return { message: 'Token not found' };
-    }
+    if (!token) return { message: 'Token not found' };
     const { message } = tokenValidation(token);
     if (message) return { message };
     const blogPosts = await BlogPost.findAll({
         include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
         { model: Category, as: 'categories', through: { attributes: [] },
         }],
-      });
+    });
      // console.log(blogPosts);
     return blogPosts;
 };
 
+const getBlogPostById = async (token, id) => {
+    if (!token) return { message: 'Token not found' };
+    const { message } = tokenValidation(token);
+    if (message) return { message1: message };
+    const blogPostById = await BlogPost.findOne({ 
+        where: { id },
+        include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+        { model: Category, as: 'categories', through: { attributes: [] },
+        }],
+    });
+    if (!blogPostById) return { message: 'Post does not exist' };
+    return blogPostById;
+    };
+
 module.exports = {
     postBlogPost,
     getBlogPosts,
+    getBlogPostById,
 };
