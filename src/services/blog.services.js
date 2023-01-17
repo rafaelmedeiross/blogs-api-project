@@ -1,9 +1,10 @@
 const { Category, BlogPost, User, PostCategory } = require('../models');
 const { tokenValidation } = require('../auth/operationsJWT');
 
+const TOKEN = 'Token not found';
 const postBlogPost = async (req, token) => {
     const { title, content, categoryIds } = req;
-    if (!token) return { message: 'Token not found' };
+    if (!token) return { message: TOKEN };
     const { message, decoded } = tokenValidation(token);
     if (message) return { message };
     const { email } = decoded;
@@ -20,7 +21,7 @@ const postBlogPost = async (req, token) => {
 };
 
 const getBlogPosts = async (token) => {
-    if (!token) return { message: 'Token not found' };
+    if (!token) return { message: TOKEN };
     const { message } = tokenValidation(token);
     if (message) return { message };
     const blogPosts = await BlogPost.findAll({
@@ -33,7 +34,7 @@ const getBlogPosts = async (token) => {
 };
 
 const getBlogPostById = async (token, id) => {
-    if (!token) return { message: 'Token not found' };
+    if (!token) return { message: TOKEN };
     const { message } = tokenValidation(token);
     if (message) return { message1: message };
     const blogPostById = await BlogPost.findOne({ 
@@ -48,12 +49,11 @@ const getBlogPostById = async (token, id) => {
 
 const updateBlogPost = async (token, req, id) => {
     const { title, content } = req;
-    if (!token) return { message: 'Token not found' };
+    if (!token) return { message: TOKEN };
     const { message, decoded } = tokenValidation(token);
     if (message) return { message };
     const { email } = decoded;
     const user = await User.findOne({ where: { email } });
-    // console.log(user);
     const postToBeUpdated = await BlogPost.findOne({ where: { id } });
     if (!postToBeUpdated) return { message1: 'Post does not exist' };
     const { userId } = postToBeUpdated;
@@ -68,9 +68,25 @@ const updateBlogPost = async (token, req, id) => {
     return updatedBlogPost;
     };
 
+const deleteBlogPost = async (token, id) => {
+    if (!token) return { message: TOKEN };
+    const { message, decoded } = tokenValidation(token);
+    if (message) return { message };
+    const { email } = decoded;
+    const user = await User.findOne({ where: { email } });
+    const postToBeDeleted = await BlogPost.findOne({ where: { id } });
+    console.log(postToBeDeleted);
+    if (!postToBeDeleted) return { message1: 'Post does not exist' };
+    const { userId } = postToBeDeleted;
+    if (userId !== user.id) return { message2: 'Unauthorized user' };
+    await BlogPost.destroy({ where: { id } });
+    return 'deleted';
+    };
+
 module.exports = {
     postBlogPost,
     getBlogPosts,
     getBlogPostById,
     updateBlogPost,
+    deleteBlogPost,
 };
