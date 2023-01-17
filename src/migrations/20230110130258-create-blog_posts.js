@@ -27,11 +27,13 @@ module.exports = {
       },
       published: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: '2011-08-01 19:58:00',
       },
       updated: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: '2011-08-01 19:58:00',
       },
     }); 
    },

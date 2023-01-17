@@ -3,7 +3,7 @@ const express = require('express');
 const loginController = require('../controllers/login.controller');
 const userController = require('../controllers/user.controller');
 const categoryController = require('../controllers/category.controller');
-// const blogController = require('../controllers/blog.controller');
+const blogController = require('../controllers/blog.controller');
 
 const loginMiddleware = require('../middlewares/login.middleware');
 const userMiddleware = require('../middlewares/user.middleware');
@@ -18,7 +18,7 @@ route.get('/user', userController.getUsers);
 route.get('/user/:id', userController.getUserById);
 route.post('/categories', categoryMiddleware.verifier, categoryController.postCategory);
 route.get('/categories', categoryController.getCategories);
-route.post('/post', blogMiddleware.verifier);
+route.post('/post', blogMiddleware.verifier, blogController.postBlogPost );
 route.delete('/user/me', userController.deleteUser);
 
 module.exports = route;

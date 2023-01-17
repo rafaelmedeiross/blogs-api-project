@@ -11,15 +11,6 @@ const Category = (sequelize, DataTypes) => {
     });
       return Category;
   };
-
-  Category.associate = (models) => {
-    // Category.hasMany(models.PostCategory, { 
-    //   foreignKey: 'category_id', as: 'postCategory' 
-    // });
-    // Category.hasMany(models.BlogPost, {
-    // as: 'BlogPost', foreignKey: 'userId',
-    // });
- };
   
   module.exports = Category;
   

@@ -47,7 +47,7 @@ const deleteUser = async (token) => {
     const { message, decoded } = tokenValidation(token);
     if (message) return { message };
     const { email } = decoded;
-    console.log(email);
+    console.log(decoded);
     const deleted = await User.findOne({ where: { email } });
     const { id } = deleted;
     await User.destroy({ where: { id } });

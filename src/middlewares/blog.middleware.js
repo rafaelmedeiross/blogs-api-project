@@ -1,10 +1,10 @@
 const verifier = (req, res, next) => {
     const { title, content, categoryIds } = req.body;
-    const message1 = 'Some required fields are missing';
-    // const message2 = 'one or more "categoryIds" not found';
-    const checker = [title, content, categoryIds].some((a) => a === undefined);
+    const message = 'Some required fields are missing';
+    const checker = [title, content, categoryIds].some((a) => !a);
+    console.log(checker);
     if (checker) {
-        return res.status(400).json({ message: message1 });
+        return res.status(400).json({ message });
     }
     next();
   };
