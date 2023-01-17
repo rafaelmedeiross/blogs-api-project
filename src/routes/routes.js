@@ -18,7 +18,7 @@ route.get('/user', userController.getUsers);
 route.get('/user/:id', userController.getUserById);
 route.post('/categories', categoryMiddleware.verifier, categoryController.postCategory);
 route.get('/categories', categoryController.getCategories);
-route.post('/post', blogMiddleware.verifier, blogController.postBlogPost );
+route.post('/post', blogMiddleware.verifier, blogController.postBlogPost);
 route.delete('/user/me', userController.deleteUser);
 
 module.exports = route;
